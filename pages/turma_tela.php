@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/TISIV/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/TISIV/sweetalert-master/dist/sweetalert.css">
     <link rel="stylesheet" type="text/css" href="/TISIV/css/bootstrap_input.css">
@@ -67,6 +67,28 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="salvarNovaTurma">Salvar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal Editar Turma  -->
+<div id="editarTurmaModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="tituloEditarTurma">Editar Turma</h4>
+            </div>
+            <div class="modal-body">
+                <label for="nomeEditarTurma">Turma:</label>
+                <div class="form-group" id="nomeEditarTurma-form">
+                    <input type="text" id="nomeEditarTurma" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="salvarEditarTurma">Salvar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

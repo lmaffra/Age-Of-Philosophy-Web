@@ -38,7 +38,7 @@ class ClassTurma {
         if ($conn->connect_error){
             return "Erro";
         }
-        $sql = "INSERT INTO tbl_turma VALUES (null, '".utf8_encode($turma['turma'])."');";
+        $sql = "INSERT INTO tbl_turma VALUES (null, '".htmlentities($turma['turma'])."');";
 
         $result = $conn->query($sql);
         if($result){
@@ -56,7 +56,7 @@ class ClassTurma {
         if ($conn->connect_error){
             return "Erro";
         }
-        $sql = "UPDATE tbl_turma SET turma = '".utf8_encode($turma['turma'])."' ";
+        $sql = "UPDATE tbl_turma SET turma = '".htmlentities($turma['turma'])."' WHERE id = ".$turma['id']." ";
 
         $result = $conn->query($sql);
         if($result){
