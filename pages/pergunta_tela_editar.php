@@ -11,8 +11,8 @@
     <link rel="stylesheet" type="text/css" href="/TISIV/css/style.css">
 	
 	<script>
-		script type="text/javascript">$('#certa-sel-pergunta').selectpicker('render');
 		var id_pergunta = <?php echo json_encode($_GET['idpergunta']); ?>;
+		$('#certa-sel-pergunta').selectpicker('render');
 	</script>
 </head>
 

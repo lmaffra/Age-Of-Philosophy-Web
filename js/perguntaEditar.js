@@ -54,13 +54,12 @@ function carregarRespostasErradas() {
     ).success(function(resp){
          $('#erradas-nova-pergunta').find('option').remove().end();
         json = $.parseJSON(resp);
+        var options = [];
         $(json).map(function(i) {
-            $('#erradas-nova-pergunta').append($('<option>', {
-                value: json[i]["id"],
-                text: json[i]["resposta"]
-            }));
-            carregarOpcoesRespostasCerta();
+                options.push('<option value="' + json[i]["id"] + '"' + '>' + json[i]["resposta"] + '</option>');
         })
+            $('#erradas-nova-pergunta').append(options.join(''));
+            carregarOpcoesRespostasCerta();
     });
 }
 
@@ -69,12 +68,11 @@ function carregarOpcoesRespostasCerta() {
         '/TISIV/functions/resposta.php'   
     ).success(function(resp){
         json = $.parseJSON(resp);
+        var options = [];
         $(json).map(function(i) {
-            $('#certa-sel-pergunta').append($('<option>', {
-                value: json[i]["id"],
-                text: json[i]["resposta"]
-            }));
+            options.push('<option value="' + json[i]["id"] + '"' + '>' + json[i]["resposta"] + '</option>');
         })
+        $('#certa-sel-pergunta').append(options.join(''));
         carregarDadosPergunta();
     });
 }
