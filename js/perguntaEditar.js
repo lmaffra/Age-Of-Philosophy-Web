@@ -1,8 +1,9 @@
 $( document ).ready(function() {
     
-    carregarRespostasErradas();
-    carregarOpcoesRespostasCerta();
+    $('#tipo-resposta-correta option[value=1]').prop('selected', true);
     
+    carregarRespostasErradas();
+
     $('#tipo-resposta-correta').change(function() {
         $('#certa-nova-pergunta-form').toggle();
         $('#certa-sel-pergunta-form').toggle();
@@ -17,20 +18,35 @@ $( document ).ready(function() {
         }
     });
      
-    $( "#Nova_Pergunta" ).click(function() {
+    $( "#Salvar_Pergunta" ).click(function() {
         if(validaCamposNova()) {
-            novaPergunta();
+            salvarPergunta();
         }else {
             sweetAlert("Oops...", "Faltando um ou mais campos.", "error");
         }
     });
     
-    $( "#Nova_Pergunta_Cancelar" ).click(function() {
+    $( "#Salvar_Pergunta_Cancelar" ).click(function() {
         history.go(-1);
     });
 });
 
 var json = [];
+
+function carregarDadosPergunta() {
+     $.get(
+        '/TISIV/functions/pergunta_id.php?idpergunta='+ id_pergunta   
+    ).success(function(resp){
+        json = $.parseJSON(resp);
+        $("#enunciado-nova-pergunta").val(json["enunciado"]);
+        $('#dificuldade-nova-pergunta option[value=' + json["dificuldade"] + ']').prop('selected', true);
+        $('#certa-sel-pergunta option[value=' + json["id_correta"] + ']').prop('selected', true); 
+        $.each(json["erradas"], function(i,id_errada) {
+            $("#erradas-nova-pergunta option[value='" + id_errada + "']").prop("selected", true);
+        });
+        
+    });
+}
 
 function carregarRespostasErradas() {
     $.get(
@@ -43,6 +59,7 @@ function carregarRespostasErradas() {
                 value: json[i]["id"],
                 text: json[i]["resposta"]
             }));
+            carregarOpcoesRespostasCerta();
         })
     });
 }
@@ -58,6 +75,7 @@ function carregarOpcoesRespostasCerta() {
                 text: json[i]["resposta"]
             }));
         })
+        carregarDadosPergunta();
     });
 }
 
@@ -79,8 +97,9 @@ function novaRespostaErrada(){
     });
 }
 
-function novaPergunta(){
+function salvarPergunta(){
      var data = {
+        id: id_pergunta,
         enunciado: $("#enunciado-nova-pergunta").val(),
         dificuldade: $("#dificuldade-nova-pergunta").val(),
         novaExistente: $('#tipo-resposta-correta').val(),
@@ -90,13 +109,13 @@ function novaPergunta(){
     };
         
     jQuery.ajax({
-        url: '/TISIV/functions/pergunta_cadastrar.php',
+        url: '/TISIV/functions/pergunta_salvar.php',
         type: 'POST',
         data: data,
         success: function(resp){
             if(resp){
                 swal({
-                    title: "Pergunta cadastrada com sucesso!",
+                    title: "Pergunta alterada com sucesso!",
                     type: "success",
                     showCancelButton: false,
                     closeOnConfirm: true
@@ -145,7 +164,7 @@ function validaCamposNova(){
             $("#certa-sel-pergunta-form").removeClass("has-error");
         }   
     }
-    //Perguntas Erradas
+    //respostas Erradas
     if($("#erradas-nova-pergunta").val() == null || $("#erradas-nova-pergunta").val().length < 4){
         $("#erradas-nova-pergunta-form").addClass("has-error");
         validado = false;

@@ -32,6 +32,7 @@
 								<th class="col-xs-1" style="width: 10%;">ID</th>
 								<th class="col-xs-1" style="width: 60%;">Enunciado</th>
 								<th class="col-xs-1" style="width: 10%;">Dificuldade</th>
+								<th class="col-xs-1" style="width: 10%;">Editar</th>
 								<th class="col-xs-1" style="width: 10%;">Excluir</th>
 							</tr>
 						</thead>

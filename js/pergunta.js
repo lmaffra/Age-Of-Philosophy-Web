@@ -13,6 +13,7 @@ function carregarPerguntas() {
         
         $(json).map(function(i) {
             var myRow = "<tr><td>" + json[i]['id'] + "</td><td>" + json[i]['enunciado'] + "</td><td>" + dificuldade(json[i]['dificuldade'])
+            + "</td><td><a href=\"pergunta_tela_editar.php?idpergunta="+ json[i]['id'] + "\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></a>"
             + "</td><td><a href=javascript:void(0); onclick=excluirPergunta("+ json[i]['id'] +");><span class='glyphicon glyphicon-trash'></span></a></td></tr>";
             $('#perguntas_table tbody').append(myRow);
         });

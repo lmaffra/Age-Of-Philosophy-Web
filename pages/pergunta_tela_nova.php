@@ -42,10 +42,22 @@
 						</tr>
 					<table class="table header-fixed" center>
 						<tr>
-							<td class="col-xs-1" style="width: 100%;">
+							<td class="col-xs-1" style="width: 29%;">
+								<label for="tipo-resposta-correta" class="control-label">Nova/Existente</label>
+								<select class="form-control" id="tipo-resposta-correta">
+									<option value="0">Nova Resposta Correta</option>
+									<option value="1">Resposta Correta Existente</option>
+								</select>
+							</td>
+							<td class="col-xs-1" style="width: 70%;">
 								<label for="certa-nova-pergunta" class="control-label">Resposta Correta:</label>
 								<div class="form-group" id="certa-nova-pergunta-form">
 									<input type="text" class="form-control" id="certa-nova-pergunta">
+								</div>
+								<div class="form-group" id="certa-sel-pergunta-form" hidden="true">
+									<select class="form-control" id="certa-sel-pergunta">
+										<option value="0">Selecionar...</option>
+									</select>
 								</div>
 							</td>
 						</tr>
