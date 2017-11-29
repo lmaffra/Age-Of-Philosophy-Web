@@ -6,35 +6,29 @@ $( document ).ready(function() {
     $("#logout-bt").click(function(){
         $.ajax({
                type: "POST",
-               url: 'valida.php',
+               url: '/TISIV/valida.php',
                data:{action:'logout'},
                success:function(resp) {
-                   window.location.replace("login.php");
+                   window.location.replace("/TISIV/login.php");
                }
 
           });
      });
 
     $.get(
-        'valida.php'
+        '/TISIV/valida.php'
     ).success(function(resp){
 
         result = $.parseJSON(resp);
 
-        DisplayName = result['displayname'];
-        UserType = result['user_type'];
-        Email = result['email'];
-        permissions = result['user_type'];
+        DisplayName = result['nome_exibicao'];
+        UserType = "Administrador";
 
         $("#user-name").html(DisplayName);
 
-        if(usrDisplayName == "") {
+        if(DisplayName == "") {
             window.location.replace("login.php");
         }
-        
-        $(permissions).map(function(i) {
-            document.getElementById(permissions[i]).style.display = "block";
-        });
         
         $('.nav-tabs li.disabled > a[data-toggle=tab]').on('click', function(e) {
             e.stopImmediatePropagation();

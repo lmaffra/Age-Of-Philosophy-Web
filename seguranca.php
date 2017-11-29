@@ -1,32 +1,25 @@
 <?php
-include ("backend/ClassSistemaUser.php");
+include ("backend/ClassSistemaUsuario.php");
 
 $_SG ['abreSessao'] = true;
 $_SG ['validaSempre'] = true;
-$_SG ['paginaLogin'] = 'login.php';
+$_SG ['paginaLogin'] = '/TISIV/login.php';
 
 // Verifica se precisa iniciar a sessão
 if ($_SG ['abreSessao'] == true) {
 	session_start ();
 }
 function validaUsuario($usuario, $senha) {
-	$class = new ClassSistemaUser ();
-	$result = $class->validaUser ( $usuario, $senha );
+	$class = new ClassSistemaUsuario();
+	$result = $class->validaUsuario( $usuario, $senha );
 	
 	global $_SG;
 	if ($result ["logincode"] == 0) {
 		return false;
 	} else {
-		$perm = $result["permissions"];
-		$permissionCount = count($perm);
-		if($permissionCount > 0) {
-			$_SESSION ['usuario'] = json_encode ( $result );
-			$_SESSION ['date'] = time ();
-			return $perm[0];
-		}
-		else {
-			return "erro";
-		}
+		$_SESSION ['usuario'] = json_encode ( $result );
+		$_SESSION ['date'] = time ();
+		return true;
 	}
 }
 function getUserData() {
@@ -54,13 +47,14 @@ function isTimeOuted() {
 			return false;
 	}
 }
+
 function expulsaVisitante() {
 	global $_SG;
 	// Remove as variáveis da sessão (caso elas existam)
 	unset ( $_SESSION ['usuario'] );
 	unset ( $_SESSION ['date'] );
 	// Manda pra tela de login
-	header ( "Location: " . $_SG ['paginaLogin'] );
+	header ( "Location: " . $_SG ['paginaLogin'], true, 301);
 }
 
 function logout() {
@@ -69,7 +63,7 @@ function logout() {
 	unset ( $_SESSION ['usuario'] );
 	unset ( $_SESSION ['date'] );
 	// Manda pra tela de login
-	header ( "Location:" . $_SG ['paginaLogin'] );
+	header ( "Location:" . $_SG ['paginaLogin'], true, 301);
 }
 
 function expulsaVerificandoTimeout() {

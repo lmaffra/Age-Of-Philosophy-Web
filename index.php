@@ -1,8 +1,7 @@
 <?php
-	/*
 	include ("seguranca.php"); // Inclui o arquivo com o sistema de segurança
 	protegePagina (); // Chama a função que protege a página
-	*/
+
 	include 'menu.php';
 ?>
 
@@ -32,12 +31,14 @@
 					<h4>Age of Philosophy</h4>
 				</div>
 				<p>
-					<h5>Painel de gerenciamento do jogo Age of Philosophy.</h5>
+					<h5 style="margin-left: 10px;">Painel de gerenciamento do jogo Age of Philosophy.</h5>
 				</p>
 			</div>
 		</div>
 	</div>
 	
 </body>
+
+	<script src="/TISIV/js/autenticacao.js"></script>
 
 </html>

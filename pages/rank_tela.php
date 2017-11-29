@@ -65,6 +65,7 @@
 	<script type="text/javascript" src="/TISIV/js/jquery.maskedinput.min.js"></script>
 	<script type="text/javascript" src="/TISIV/sweetalert-master/dist/sweetalert.min.js"></script>
 	<script src="/TISIV/js/rank.js"></script>	
+	<script src="/TISIV/js/autenticacao.js"></script>
 </body>
 
 </html>

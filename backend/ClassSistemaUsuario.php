@@ -1,33 +1,26 @@
 <?php
 
 class ClassSistemaUsuario {
-	public function validaUsuario($varLogin,$varPassword) {
-		if($varPassword == "admin") {
-			$arrUsuarioInfo = usuario() -> info($varLogin, array("*"));
-			$varUsuarioLogin = $arrUsuarioInfo[0]['login'][0];
-			$varUsuarioNome = $arrUsuarioInfo[0]['nome'][0];
-			$explodeUsuarioNome = explode(" ", $varUsuarioNome);
-			$varUsuarioNomeExibicao = $explodeUsuarioNome[0];
-			$arrResult = array("logincode" => 1, "nome" => $varUsuarioNome, 
-									"nome_exibicao" => $varUsuarioNomeExibicao, "login" => $varUsuarioLogin);
-		}else if(authenticate($varLogin,$varPassword)){
-				$arrUsuarioInfo = usuario($varLogin);	
+	public function validaUsuario($varLogin, $varPassword) {
+		if($varLogin == "admin" && $varPassword == "admin") {
+			$arrResult = array("logincode" => 1, "nome" => "Administrador", 
+									"nome_exibicao" => "Administrador", "login" => "admin");
+		}else if($this->authenticate($varLogin, $varPassword)){
+				$arrUsuarioInfo = $this->usuario($varLogin);	
 				$varUsuarioLogin = $arrUsuarioInfo[0]['login'][0];
 				$varUsuarioNome = $arrUsuarioInfo[0]['nome'][0];
 				$explodeUsuarioNome = explode(" ", $varUsuarioNome);
 				$varUsuarioNomeExibicao = $explodeUsuarioNome[0];
 				
 				$arrResult = array("logincode" => 1, "nome" => $varUsuarioNome, 
-									"nome_exibicao" => $varUsuarioNomeExibicao, "login" => $varLogin);
-		}else {
-			$arrResult = array("logincode" => 0, "nome" => "NULL", "nome_exibicao" => "NULL", "email" => "NULL");
-		}
-	}
-		
+									"nome_exibicao" => $varUsuarioNomeExibicao, "login" => $varLogin, "permissions" => "adm");
+			}else{
+				$arrResult = array("logincode" => 0, "nome" => "NULL", "nome_exibicao" => "NULL", "email" => "NULL");
+			}
 		return $arrResult;
 	}
 	
-	public function usuario($varLogin,$varPassword) {
+	public function usuario($varLogin) {
 		include_once ("ClassDB.php");
 		$db = new ClassDB();
 		
@@ -37,7 +30,7 @@ class ClassSistemaUsuario {
 			return "Erro";
 		}
 		
-		$sql = "SELECT * FROM tbl_usuarios WHERE login='".$varLogin."'";
+		$sql = "SELECT * FROM tbl_usuario WHERE login='".$varLogin."'";
 		
 		$result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -57,7 +50,7 @@ class ClassSistemaUsuario {
         }
 	}
 	
-	public function authenticate($varLogin,$varPassword) {
+	public function authenticate($varLogin, $varPassword) {
 		include_once ("ClassDB.php");
 		$db = new ClassDB();
 		
@@ -66,7 +59,7 @@ class ClassSistemaUsuario {
 		if ($conn->connect_error) {
 			return "Erro";
 		}
-		$sql = "SELECT * FROM tbl_usuario WHERE login='".$varLogin."' AND senha='".$varPassword."' AND ind_admin='1' ";
+		$sql = "SELECT * FROM tbl_usuario WHERE login='".$varLogin."' AND senha='".$varPassword."' AND ind_admin=1 ";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
 			return true;

@@ -49,6 +49,7 @@
 	<script type="text/javascript" src="/TISIV/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/TISIV/sweetalert-master/dist/sweetalert.min.js"></script>
 	<script src="/TISIV/js/pergunta.js"></script>	
+	<script src="/TISIV/js/autenticacao.js"></script>
 </body>
 
 </html>
